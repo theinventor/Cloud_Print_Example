@@ -1,0 +1,26 @@
+== Welcome to Rails
+
+This example app should take you through authing and printing to a google cloud printer.
+This readme will get bigger as the app starts to work :)
+
+
+== Getting Started
+
+1. Setup the database
+       <tt>rake db:migrate</tt>
+
+2. Load the seed data and start the server
+       <tt>rake db:seed; rails server</tt>
+
+3. Go to http://localhost:3000/ and you'll see:
+       "Printers"
+
+4. Find the TODO comments with the rake task:
+    <tt>rake notes:todo</tt>
+
+== Notes
+
+1. http://leemart.in/instaprinter
+
+2. https://code.google.com/apis/console/
+
