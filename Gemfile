@@ -7,6 +7,7 @@ gem 'rails', '3.2.6'
 
 gem 'sqlite3'
 gem 'omniauth-google-oauth2'
+gem 'cloudprint', :git => "https://github.com/minciue/cloudprint.git"
 
 
 # Gems used only for assets and not required

@@ -2,22 +2,19 @@
 
 <%= link_to "Refresh", refresh_printers_path %>
 
+<%= flash[:success] %>
 <table>
   <tr>
-    <th>Name</th>
-    <th>Printer</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>ID</th>
+    <th>Printer Name</th>
+    <th>Option</th>
   </tr>
 
 <% @printers.each do |printer| %>
   <tr>
+    <td><%= printer.id %></td>
     <td><%= printer.name %></td>
-    <td><%= printer.printer_id %></td>
-    <td><%= link_to 'Show', printer %></td>
-    <td><%= link_to 'Edit', edit_printer_path(printer) %></td>
-    <td><%= link_to 'Destroy', printer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to "Test Print", test_print_path(:id => printer.id) %></td>
   </tr>
 <% end %>
 </table>
