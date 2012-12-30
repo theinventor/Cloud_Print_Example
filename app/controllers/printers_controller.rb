@@ -31,7 +31,6 @@ class PrintersController < ApplicationController
 
       @setup = CloudPrint.setup(hash)
       @printers = CloudPrint::Printer.all
-      debugger
       @printers.each do |cloud_printer|
         user_account.create_unique_printer(cloud_printer)
       end

@@ -15,8 +15,6 @@ class SessionsController < ApplicationController
       sign_in(user)
       redirect_to printers_path
     end
-    
-    
   end
 
   def new
