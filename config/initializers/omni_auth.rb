@@ -4,8 +4,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     :scope => 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/cloudprint' 
 end
 
-CLOUD_PRINT_URL = 'http://www.google.com/cloudprint'
-
 # OmniAuth.config.full_host = "http://localhost:3000"
 
 # Rails.application.config.middleware.use OmniAuth::Builder do

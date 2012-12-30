@@ -1,5 +1,5 @@
 GoogleCloudPrintExample::Application.routes.draw do
-  resources :users
+  devise_for :users
 
   resources :printers do
     collection do
@@ -7,10 +7,8 @@ GoogleCloudPrintExample::Application.routes.draw do
     end
   end
 
-  match 'test-print/:id' => 'printers#queue_test', :as => :test_print
-
-  match "/auth/:provider/callback" => "sessions#create"
-  match "/signout" => "sessions#destroy", :as => :signout
-
-  root :to => 'printers#index'
+  match '/auth/google_oauth2/callback' => 'sessions#create'
+  match '/logout' => 'sessions#destroy'
+  
+  root :to => 'sessions#new'
 end

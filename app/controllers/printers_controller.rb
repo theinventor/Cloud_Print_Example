@@ -1,19 +1,12 @@
-require 'net/http'
-
 class PrintersController < ApplicationController
+
+  before_filter :authenticate_user!
+
   # GET /printers
   # GET /printers.json
   def index
-    return redirect_to "/auth/google_oauth2" unless session[:refresh_token]
-    hash = {
-      :refresh_token => session[:refresh_token],
-      :client_id => "893110491171.apps.googleusercontent.com",
-      :client_secret => "hBaYoCclmKH7IUgDYYdk4H0v",
-      :callback_url => "http://localhost:3000/auth/google_oauth2/callback"
-    }
-
-    @setup = CloudPrint.setup(hash)
-    @printers = CloudPrint::Printer.all
+    # @setup = CloudPrint.setup(hash)
+    # @printers = CloudPrint::Printer.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -22,8 +15,28 @@ class PrintersController < ApplicationController
   end
 
   def refresh
-    #TODO go get all the google printers and create records for them in the database!
+    @user_accounts = if params[:user_account]
+                       [ UserAccount.find(params[:user_account]) ]
+                     else
+                        current_user.user_accounts
+                     end
+    
+    @user_accounts.each do |user_account|
+      hash = {
+        :refresh_token => user_account.refresh_token,
+        :client_id => "893110491171.apps.googleusercontent.com",
+        :client_secret => "hBaYoCclmKH7IUgDYYdk4H0v",
+        :callback_url => "http://localhost:3000/auth/google_oauth2/callback"
+      }
 
+      @setup = CloudPrint.setup(hash)
+      @printers = CloudPrint::Printer.all
+      debugger
+      @printers.each do |cloud_printer|
+        user_account.create_unique_printer(cloud_printer)
+      end
+    end
+    redirect_to printers_path
   end
 
   # GET /printers/1
