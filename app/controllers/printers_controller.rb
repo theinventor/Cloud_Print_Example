@@ -52,6 +52,7 @@ class PrintersController < ApplicationController
 
   def queue_test
     @printer = CloudPrint::Printer.find(params[:id])
+    #binding.pry
     if @printer.print(:content => File.open("#{Rails.root}/public/example-address-label.pdf"), :title => "This is a test", :content_type => "pdf")
       flash[:success] = "Print Job Queued"
     else
