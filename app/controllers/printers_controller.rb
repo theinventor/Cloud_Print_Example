@@ -30,8 +30,8 @@ class PrintersController < ApplicationController
       }
 
       @setup = CloudPrint.setup(hash)
+      CloudPrint.refresh_token = user_account.refresh_token
       @printers = CloudPrint::Printer.all
-      debugger
       @printers.each do |cloud_printer|
         user_account.create_unique_printer(cloud_printer)
       end
@@ -52,10 +52,12 @@ class PrintersController < ApplicationController
 
   def queue_test
     @printer = CloudPrint::Printer.find(params[:id])
-    if @printer.print(:content => "www.tobcon.ie/assets/files/test.pdf", :title => "This is a test", :content_type => "pdf")
+    if @printer.print(:content => File.open("#{Rails.root}/public/example-address-label.pdf"), :title => "This is a test", :content_type => "pdf")
       flash[:success] = "Print Job Queued"
-      redirect_to printers_path
+    else
+      flash[:error] = "Please try again later"
     end
+    redirect_to printers_path
   end
 
   # GET /printers/new

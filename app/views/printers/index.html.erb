@@ -1,3 +1,5 @@
+<%= flash[:success] || flash[:error] %>
+<br>
 Welcome <%= current_user.name %> | <%= link_to "Logout", '/logout' %>
 
 <h5>Google Accounts |
@@ -25,7 +27,7 @@ Welcome <%= current_user.name %> | <%= link_to "Logout", '/logout' %>
       <td><%= printer.printer_id %></td>
       <td><%= printer.name %></td>
       <td><%= printer.user_account.email %></td>
-      <td><%= link_to "Test Print", '#' %></td>
+      <td><%= link_to "Test Print", "/test-print/#{printer.printer_id}" %></td>
     </tr>
   <% end %>
 </table>
