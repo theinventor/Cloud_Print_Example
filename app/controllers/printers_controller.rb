@@ -35,6 +35,7 @@ class PrintersController < ApplicationController
       @printers.each do |cloud_printer|
         user_account.create_unique_printer(cloud_printer)
       end
+      #binding.pry
     end
     redirect_to printers_path
   end
@@ -53,7 +54,7 @@ class PrintersController < ApplicationController
   def queue_test
     @printer = CloudPrint::Printer.find(params[:id])
     #binding.pry
-    if @printer.print(:content => File.open("#{Rails.root}/public/example-address-label.pdf"), :title => "This is a test", :content_type => "pdf")
+    if @printer.print(:content => File.open("#{Rails.root}/public/example-address-label.pdf"), :title => "example-address-label.pdf", :content_type => "application/pdf")
       flash[:success] = "Print Job Queued"
     else
       flash[:error] = "Please try again later"
